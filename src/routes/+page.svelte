@@ -1,13 +1,8 @@
 <script>
-	import { supabase } from '$lib/supabaseClient';
-	async function handleClick() {
-		console.log('click');
-		let { data: todo, error } = await supabase
-			.from('posts')
-			.insert({ text: 'added' })
-			.select()
-			.single();
-	}
+	// @ts-nocheck
+
+	import { addPost, deletePost, updatePost } from '../lib/supabaseActions';
+	import Post from './Post.svelte';
 
 	/**
 	 * @type {{ posts: any; }}
@@ -17,9 +12,15 @@
 	$: ({ posts } = data);
 </script>
 
-<button on:click={handleClick}> добавить </button>
-<ul>
-	{#each posts as posts}
-		<li>{posts.text}</li>
-	{/each}
-</ul>
+<button on:click={addPost}> добавить </button>
+{#each posts as post}
+	<Post
+		text={post.text}
+		handleDelete={() => {
+			deletePost(post.id);
+		}}
+		handleUpdate={() => {
+			updatePost(post.id, 'updated');
+		}}
+	/>
+{/each}
