@@ -22,5 +22,6 @@
 		handleUpdate={() => {
 			updatePost(post.id, 'updated');
 		}}
+		date={post.created_at}
 	/>
 {/each}
