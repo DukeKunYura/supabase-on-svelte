@@ -30,7 +30,7 @@ export async function updatePost(id, text) {
         const post = {
             id: id,
             text: text,
-            created_at: new Date(),
+            update_at: new Date(),
         }
         await supabase.from('posts').upsert(post)
 

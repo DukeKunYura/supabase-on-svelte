@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { addPost, deletePost, updatePost } from '../lib/supabaseActions';
+	import { addPost } from '../lib/supabaseActions';
 	import Post from './Post.svelte';
 
 	/**
@@ -14,14 +14,5 @@
 
 <button on:click={addPost}> добавить </button>
 {#each posts as post}
-	<Post
-		text={post.text}
-		handleDelete={() => {
-			deletePost(post.id);
-		}}
-		handleUpdate={() => {
-			updatePost(post.id, 'updated');
-		}}
-		date={post.created_at}
-	/>
+	<Post id={post.id} text={post.text} date={post.created_at} update={post.update_at} />
 {/each}
