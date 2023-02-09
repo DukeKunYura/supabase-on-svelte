@@ -5,6 +5,8 @@
 	import { formatRelative } from 'date-fns';
 	import { ru } from 'date-fns/locale';
 
+	export let fetchPosts = () => {};
+
 	export let id = null;
 	export let text = '';
 	export let date = '1990-01-01';
@@ -13,17 +15,19 @@
 	let isEditing = false;
 	let inputValue = '';
 
-	function handleDelete(id) {
-		deletePost(id);
+	async function handleDelete(id) {
+		await deletePost(id);
+		fetchPosts();
 	}
 
 	function setEditing() {
 		isEditing = true;
 	}
 
-	function handleUpdate(id) {
-		updatePost(id, inputValue);
+	async function handleUpdate(id) {
+		await updatePost(id, inputValue);
 		isEditing = false;
+		fetchPosts();
 	}
 </script>
 
@@ -48,7 +52,6 @@
 			<input
 				class="text"
 				type="text"
-				autofocus="true"
 				value={text}
 				on:input={(event) => (inputValue = event.target.value)}
 			/>

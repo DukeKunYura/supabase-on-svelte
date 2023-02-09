@@ -1,10 +1,13 @@
 import { supabase } from "$lib/supabaseClient";
 
-export async function addPost() {
+/**
+ * @param {string} [value]
+ */
+export async function addPost(value) {
     try {
         await supabase
             .from('posts')
-            .insert({ text: 'added' })
+            .insert({ text: value })
             .select()
             .single();
     } catch (error) {

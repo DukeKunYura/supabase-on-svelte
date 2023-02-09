@@ -4,9 +4,12 @@
 	import { addPost } from '../lib/supabaseActions';
 
 	let inputValue = '';
+	export let fetchPosts = () => {};
 
-	function handlerAdder() {
-		addPost();
+	async function handlerAdder() {
+		await addPost(inputValue);
+		fetchPosts();
+		inputValue = '';
 	}
 </script>
 
@@ -50,14 +53,7 @@
 		background-color: white;
 		border-style: none;
 	}
-	.date {
-		display: flex;
-		flex-direction: row;
-	}
 	button {
 		width: 100px;
-	}
-	p {
-		margin-right: 3pt;
 	}
 </style>

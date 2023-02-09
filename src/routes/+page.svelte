@@ -1,5 +1,6 @@
 <script>
 	// @ts-nocheck
+	import { supabase } from '$lib/supabaseClient';
 
 	import Adder from './Adder.svelte';
 	import Post from './Post.svelte';
@@ -10,13 +11,28 @@
 	export let data;
 	let { posts } = data;
 	$: ({ posts } = data);
+
+	const fetchPosts = async () => {
+		let { data, error } = await supabase.from('posts').select('*').order('id', { ascending: true });
+		if (error) {
+			console.log('error', error);
+		} else {
+			posts = data;
+		}
+	};
 </script>
 
 <div class="page">
-	<Adder />
+	<Adder {fetchPosts} />
 	<div class="list">
 		{#each posts as post}
-			<Post id={post.id} text={post.text} date={post.created_at} update={post.update_at} />
+			<Post
+				{fetchPosts}
+				id={post.id}
+				text={post.text}
+				date={post.created_at}
+				update={post.update_at}
+			/>
 		{/each}
 	</div>
 </div>
