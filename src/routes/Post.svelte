@@ -31,25 +31,29 @@
 	{#if isEditing === false}
 		<p class="text">{text}</p>
 		<div class="buttons">
-			<button on:click={setEditing}>UPDATE</button>
+			<button on:click={setEditing}>Изменить</button>
 			<button
 				on:click={() => {
 					handleDelete(id);
-				}}>DELETE</button
+				}}>Удалить</button
 			>
 		</div>
 	{:else}
-		<div>
-			<form
-				class="form"
-				on:submit|preventDefault={() => {
-					handleUpdate(id);
-				}}
-			>
-				<input type="text" value={text} on:input={(event) => (inputValue = event.target.value)} />
-				<button type="submit">Отправить</button>
-			</form>
-		</div>
+		<form
+			class="form"
+			on:submit|preventDefault={() => {
+				handleUpdate(id);
+			}}
+		>
+			<input
+				class="text"
+				type="text"
+				autofocus="true"
+				value={text}
+				on:input={(event) => (inputValue = event.target.value)}
+			/>
+			<button type="submit">Сохранить</button>
+		</form>
 	{/if}
 	{#if update === null}
 		<div class="date">
@@ -73,12 +77,16 @@
 		background-color: rgb(226, 226, 226);
 		max-width: 600px;
 		width: 100%;
-		height: 100px;
+		height: 150px;
 		padding: 10px;
 		margin: 10px;
 		border-radius: 10px;
 	}
 	.text {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 90%;
 		height: 40px;
 		width: 90%;
 	}
@@ -89,10 +97,15 @@
 	.form {
 		display: flex;
 		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		width: 100%;
 	}
 	.date {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 	input {
 		height: 40px;
@@ -104,6 +117,7 @@
 	button {
 		height: 30px;
 		width: 100px;
+		margin: 10px;
 		border-radius: 10px;
 		background-color: white;
 		border-style: none;
