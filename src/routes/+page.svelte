@@ -1,7 +1,7 @@
 <script>
 	// @ts-nocheck
 
-	import { addPost } from '../lib/supabaseActions';
+	import Adder from './Adder.svelte';
 	import Post from './Post.svelte';
 
 	/**
@@ -12,7 +12,26 @@
 	$: ({ posts } = data);
 </script>
 
-<button on:click={addPost}> добавить </button>
-{#each posts as post}
-	<Post id={post.id} text={post.text} date={post.created_at} update={post.update_at} />
-{/each}
+<div class="page">
+	<Adder />
+	<div class="list">
+		{#each posts as post}
+			<Post id={post.id} text={post.text} date={post.created_at} update={post.update_at} />
+		{/each}
+	</div>
+</div>
+
+<style>
+	.page {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.list {
+		display: flex;
+		flex-direction: column-reverse;
+		align-items: center;
+		max-width: 600px;
+		width: 80%;
+	}
+</style>

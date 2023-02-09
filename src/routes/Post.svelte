@@ -29,13 +29,15 @@
 
 <div class="container">
 	{#if isEditing === false}
-		<p>{text}</p>
-		<button on:click={setEditing}>UPDATE</button>
-		<button
-			on:click={() => {
-				handleDelete(id);
-			}}>DELETE</button
-		>
+		<p class="text">{text}</p>
+		<div class="buttons">
+			<button on:click={setEditing}>UPDATE</button>
+			<button
+				on:click={() => {
+					handleDelete(id);
+				}}>DELETE</button
+			>
+		</div>
 	{:else}
 		<div>
 			<form
@@ -64,9 +66,25 @@
 
 <style>
 	.container {
-		background-color: gray;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: rgb(226, 226, 226);
+		max-width: 600px;
+		width: 100%;
+		height: 100px;
 		padding: 10px;
 		margin: 10px;
+		border-radius: 10px;
+	}
+	.text {
+		height: 40px;
+		width: 90%;
+	}
+	.buttons {
+		display: flex;
+		flex-direction: row;
 	}
 	.form {
 		display: flex;
@@ -76,8 +94,19 @@
 		display: flex;
 		flex-direction: row;
 	}
+	input {
+		height: 40px;
+		width: 90%;
+		text-align: center;
+		border-color: rgb(226, 226, 226);
+		border-radius: 10px;
+	}
 	button {
+		height: 30px;
 		width: 100px;
+		border-radius: 10px;
+		background-color: white;
+		border-style: none;
 	}
 	p {
 		margin-right: 3pt;
